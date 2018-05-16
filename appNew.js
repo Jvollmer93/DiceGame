@@ -10,48 +10,57 @@ function defenderRoll(n1, n2, n3, n4){
 	player2Defend = false;
 	player3Defend = false;
 	player4Defend = false;
-	let defenderRoll = rollDice(4);
-	if (defenderRoll === 1){
-		console.log(n1 + " is defending");
-		return player1Defend = true;
-	}
-	else if (defenderRoll === 2){
-		console.log(n2 + " is defending");
-		return player2Defend = true;
-	}
-	else if (defenderRoll === 3){
-		console.log(n3 + " is defending");
-		return player3Defend = true;
-	}
-	else{
-		console.log(n4 + " is defending");
-		return player4Defend = true;
-	}
+	let attackPrompt = prompt(("Who would you like to attack? Enter 1 for " + n1 + ", 2 for " + n2 + ", 3 for " + n3 + ", or 4 for " + n4 + "."), 0);
+	do{
+		if(parseInt(attackPrompt) === 1){
+			console.log(n1 + " is defending.");
+			return player1Defend = true;
+		}
+		if(parseInt(attackPrompt) === 2){
+			console.log(n2 + " is defending.");
+			return player2Defend = true;
+		}
+		if(parseInt(attackPrompt) === 3){
+			console.log(n3 + " is defending.");
+			return player3Defend = true;
+		}
+		if(parseInt(attackPrompt) == 4){
+			console.log(n4 + " is defending.");
+			return player4Defend = true;
+		}
+		if((attackPrompt!==1)&&(attackPrompt!==2)&&(attackPrompt!==3)&&(attackPrompt!==4)){
+			attackPrompt = prompt("Invalid input, please enter 1, 2, 3, or 4 to choose who you are attacking.", 0)
+		}
+	}while((attackPrompt!==1)&&(attackPrompt!==2)&&(attackPrompt!==3)&&(attackPrompt!==4));
 }
 
 function trueFalse(n1, n2, n3, n4){
 	if(player1Attack === true){
 		player1Attack = false;
 		player2Attack = true;
-		console.log(n2 + "'s turn.. " + n2 + " will roll to choose a defender");
+		alert(n2 + "'s turn.. " + n2 + " will choose a defender");
+		console.log(n2 + "'s turn.. " + n2 + " will choose a defender");
 		return;
 	}
 	else if(player2Attack === true){
 		player2Attack = false;
 		player3Attack = true;
-		console.log(n3 + "'s turn.. " + n3 + " will roll to choose a defender");
+		alert(n3 + "'s turn.. " + n3 + " will choose a defender");
+		console.log(n3 + "'s turn.. " + n3 + " will choose a defender");
 		return;
 	}
 	else if(player3Attack === true){
 		player3Attack = false;
 		player4Attack = true;
-		console.log(n4 + "'s turn.. " + n4 + " will roll to choose a defender");
+		alert(n4 + "'s turn.. " + n4 + " will choose a defender");
+		console.log(n4 + "'s turn.. " + n4 + " will choose a defender");
 		return;
 	}
 	else{
 		player4Attack = false;
 		player1Attack = true;
-		console.log(n1 + "'s turn.. " + n1 + " will roll to choose a defender");
+		alert(n1 + "'s turn.. " + n1 + " will choose a defender");
+		console.log(n1 + "'s turn.. " + n1 + " will choose a defender");
 		return;
 	}
 }
@@ -134,19 +143,23 @@ function loseTroops(troopsLost, player){
 function start(n1, n2, n3, n4){
 	let startingRoll = rollDice(4);
 	if(startingRoll === 1){
+	alert(n1 + " will go first.");
 	console.log(n1 + " will go first.");	
 	player1Attack = true;
 	}
 	else if(startingRoll === 2){
-		console.log(n2 + " will go first.");	;	
+		alert(n2 + " will go first.");
+		console.log(n2 + " will go first.");		
 		player2Attack = true;
 
 	}
 	else if(startingRoll === 3){
+		alert(n3 + " will go first.");
 		console.log(n3 + " will go first.");	
 		player3Attack = true;
 	}
 	else{
+		alert(n4 + " will go first.");
 		console.log(n4 + " will go first.");	
 		player4Attack = true;
 	}
