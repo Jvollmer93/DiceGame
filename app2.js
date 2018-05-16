@@ -86,11 +86,11 @@ function ifElse(nameA, nameD, p1, p2){
 	tempRollAttacker = rollDice(10);
 	if(tempRollAttacker > tempRollDefender){
 		p2 = attackerWins(nameA, nameD, p2);
-		return (p1, p2);
+		return [p1, p2];
 	}
 	else{
 		p1 = defenderWins(nameA, nameD, p1);
-		return (p1, p2);
+		return [p1, p2];
 	}
 }
 
@@ -206,48 +206,48 @@ do{
 		attackingSelfRoll = 0;
 	}
 	else if(player2Attack && player1Defend){
-		ifElse(player2Name, player1Name, player2, player1);
+		[player2, player1] = ifElse(player2Name, player1Name, player2, player1);
 	}
 	else if(player3Attack && player1Defend){
-		ifElse(player3Name, player1Name, player3, player1);
+		[player3, player1] = ifElse(player3Name, player1Name, player3, player1);
 	}
 	else if(player4Attack && player1Defend){
-		ifElse(player4Name, player1Name, player4, player1);
+		[player4, player1] = ifElse(player4Name, player1Name, player4, player1);
 	}
 	else if(player1Attack && player2Defend){
-		ifElse(player1Name, player2Name, player1, player2);
+		[player1, player2] = ifElse(player1Name, player2Name, player1, player2);
 	}
 	else if(player2Attack && player2Defend){
 		player2 = attackSelf(player2Name, player2);
 		attackingSelfRoll = 0;
 	}
 	else if(player3Attack && player2Defend){
-		ifElse(player3Name, player2Name, player3, player2);
+		[player3, player2] = ifElse(player3Name, player2Name, player3, player2);
 	}
 	else if(player4Attack && player2Defend){
-		ifElse(player4Name, player2Name, player4, player2);
+		[player4, player2] = ifElse(player4Name, player2Name, player4, player2);
 	}
 	else if(player1Attack && player3Defend){
-		ifElse(player1Name, player3Name, player1, player3);
+		[player1, player3] = ifElse(player1Name, player3Name, player1, player3);
 	}
 	else if(player2Attack && player3Defend){
-		ifElse(player2Name, player3Name, player2, player3);
+		[player2, player3] = ifElse(player2Name, player3Name, player2, player3);
 	}
 	else if(player3Attack && player3Defend){
 		player3 = attackSelf(player3Name, player3);
 		attackingSelfRoll = 0;
 	}
 	else if(player4Attack && player3Defend){
-		ifElse(player4Name, player3Name, player4, player3);
+		[player4, player3] = ifElse(player4Name, player3Name, player4, player3);
 	}
 	else if(player1Attack && player4Defend){
-		ifElse(player1Name, player4Name, player1, player4);	
+		[player1, player4] = ifElse(player1Name, player4Name, player1, player4);	
 	}
 	else if(player2Attack && player4Defend){
-		ifElse(player2Name, player4Name, player2, player4);	
+		[player2, player4] = ifElse(player2Name, player4Name, player2, player4);	
 	}
 	else if(player3Attack && player4Defend){
-		ifElse(player3Name, player4Name, player3, player4);
+		[player3, player4] = ifElse(player3Name, player4Name, player3, player4);
 	}
 	else{
 		player4 = attackSelf(player4Name, player4);
