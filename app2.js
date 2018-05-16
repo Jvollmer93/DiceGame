@@ -77,20 +77,21 @@ function getPlayerNames(){
 }
 
 function ifElse(nameA, nameD, p1, p2){
+	tempRollAttacker = 0;
+	tempRollDefender = 0;
 	console.log(nameA + " is attacking " + nameD + "!");
 	console.log(nameD + " rolls a...");
 	tempRollDefender = rollDice(12);
 	console.log(nameA + " rolls a...");
 	tempRollAttacker = rollDice(10);
 	if(tempRollAttacker > tempRollDefender){
-		attackerWins(nameA, nameD, p2);
+		p2 = attackerWins(nameA, nameD, p2);
+		return (p1, p2);
 	}
 	else{
-		defenderWins(nameA, nameD, p1);
+		p1 = defenderWins(nameA, nameD, p1);
+		return (p1, p2);
 	}
-	tempRollAttacker = 0;
-	tempRollDefender = 0;
-	return;
 }
 
 function attackSelf(playerName, playerTroops){
@@ -98,32 +99,35 @@ function attackSelf(playerName, playerTroops){
 	attackingSelfRoll = rollDice(5);
 	if((attackingSelfRoll !== 5)||(attackingSelfRoll !== 1)){
 		attackingSelfRoll = 0;
-		return playerTroops -= 5;
+		playerTroops -= 5;
+		console.log(playerName + " did not roll a 1 or 5, and lost 5 troops. " + playerName + " now has " + playerTroops + " troops");
+		return playerTroops;
 	}
+	console.log(playerName + " succesfully rolled a 1 or 5 and did not lose any troops");
 	attackingSelfRoll = 0;
-	return;
+	return playerTroops;
 }
 
 function attackerWins(nameA, nameD, playerTroops){
-	console.log(nameA + "successfully attacked " + nameD + ", " + nameD + " rolls to see how many troops are lost");
-	tempRollTroopsLost = rollDice(8);
-	loseTroops(tempRollTroopsLost, playerTroops)
-	tempRollTroopsLost = 0;
-	console.log(nameD + " now has " + playerTroops + " troops.")
-	return;
+	console.log(nameA + " successfully attacked " + nameD + ", " + nameD + " rolls to see how many troops are lost");
+	let tempRollTroopsLostInstance = rollDice(8);
+	playerTroops = loseTroops(tempRollTroopsLostInstance, playerTroops);
+	console.log(nameD + " lost " + tempRollTroopsLostInstance + " and now has " + playerTroops + " troops.");
+	tempRollTroopsLostInstance = 0;
+	return playerTroops;
 }
 
 function defenderWins(nameA, nameD, playerTroops){
-	console.log(nameA + "attacked " + nameD + " and lost, " + nameA + " rolls to see how many troops are lost");
-	tempRollTroopsLost = rollDice(8);
-	loseTroops(tempRollTroopsLost, playerTroops);
-	tempRollTroopsLost = 0;
-	console.log(nameA + " now has " + playerTroops + " troops.")
-	return;
+	console.log(nameA + " attacked " + nameD + " and lost, " + nameA + " rolls to see how many troops are lost");
+	let tempRollTroopsLostInstance = rollDice(8);
+	playerTroops = loseTroops(tempRollTroopsLostInstance, playerTroops);
+	console.log(nameA + " lost " + tempRollTroopsLostInstance + " and now has " + playerTroops + " troops.");
+	tempRollTroopsLostInstance = 0;
+	return playerTroops;
 }
 
 function loseTroops(troopsLost, player){
-	player -= troopsLost;
+	player = player - troopsLost;
 	return player;
 }
 
@@ -172,7 +176,7 @@ let player1 = parseInt(playerPrompt);
 let player2 = parseInt(playerPrompt);
 let player3 = parseInt(playerPrompt);
 let player4 = parseInt(playerPrompt);
-let names = getPlayerNames()
+let names = getPlayerNames();
 let player1Name = names[0];
 let player2Name = names[1];
 let player3Name = names[2];
@@ -188,75 +192,65 @@ let player4Defend = false;
 let attackingSelfRoll = 0;
 let tempRollAttacker = 0;
 let tempRollDefender = 0;
-let tempRollTroopsLost = 0;
 
 printRules(player1Name, player2Name, player3Name, player4Name);
 start(player1Name, player2Name, player3Name, player4Name);
 
 do{
 	defenderRoll(player1Name, player2Name, player3Name, player4Name);
+	if((player1<=0)||(player2<=0)||(player3<=0)||(player4<=0)){
+		break;
+	}
 	if(player1Attack && player1Defend){
-		attackSelf(player1Name, player1);
+		player1 = attackSelf(player1Name, player1);
 		attackingSelfRoll = 0;
 	}
 	else if(player2Attack && player1Defend){
 		ifElse(player2Name, player1Name, player2, player1);
-		tempRollTroopsLost = 0;
 	}
 	else if(player3Attack && player1Defend){
 		ifElse(player3Name, player1Name, player3, player1);
-		tempRollTroopsLost = 0;
 	}
 	else if(player4Attack && player1Defend){
-		ifElse(player4Name, player1Name, player4, player1)
-		tempRollTroopsLost = 0;
+		ifElse(player4Name, player1Name, player4, player1);
 	}
 	else if(player1Attack && player2Defend){
 		ifElse(player1Name, player2Name, player1, player2);
-		tempRollTroopsLost = 0;
 	}
 	else if(player2Attack && player2Defend){
-		attackSelf(player2Name, player2);
+		player2 = attackSelf(player2Name, player2);
 		attackingSelfRoll = 0;
 	}
 	else if(player3Attack && player2Defend){
 		ifElse(player3Name, player2Name, player3, player2);
-		tempRollTroopsLost = 0;
 	}
 	else if(player4Attack && player2Defend){
 		ifElse(player4Name, player2Name, player4, player2);
-		tempRollTroopsLost = 0;
 	}
 	else if(player1Attack && player3Defend){
 		ifElse(player1Name, player3Name, player1, player3);
-		tempRollTroopsLost = 0;
 	}
 	else if(player2Attack && player3Defend){
 		ifElse(player2Name, player3Name, player2, player3);
-		tempRollTroopsLost = 0;
 	}
 	else if(player3Attack && player3Defend){
-		attackSelf(player3Name, player3);
+		player3 = attackSelf(player3Name, player3);
 		attackingSelfRoll = 0;
 	}
 	else if(player4Attack && player3Defend){
 		ifElse(player4Name, player3Name, player4, player3);
-		tempRollTroopsLost = 0;
 	}
 	else if(player1Attack && player4Defend){
-		ifElse(player1Name, player4Name, player1, player4);
-		tempRollTroopsLost = 0;	
+		ifElse(player1Name, player4Name, player1, player4);	
 	}
 	else if(player2Attack && player4Defend){
-		ifElse(player2Name, player4Name, player2, player4);
-		tempRollTroopsLost = 0;	
+		ifElse(player2Name, player4Name, player2, player4);	
 	}
 	else if(player3Attack && player4Defend){
 		ifElse(player3Name, player4Name, player3, player4);
-		tempRollTroopsLost = 0;	
 	}
 	else{
-		attackSelf(player4Name, player4);
+		player4 = attackSelf(player4Name, player4);
 		attackingSelfRoll = 0;
 	}
 	if((player1>0)&&(player2>0)&&(player3>0)&&(player4>0)){
