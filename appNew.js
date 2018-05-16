@@ -10,8 +10,11 @@ function defenderRoll(n1, n2, n3, n4){
 	player2Defend = false;
 	player3Defend = false;
 	player4Defend = false;
-	let attackPrompt = prompt(("Who would you like to attack? Enter 1 for " + n1 + ", 2 for " + n2 + ", 3 for " + n3 + ", or 4 for " + n4 + "."), 0);
+	let attackPrompt = prompt(("Who would you like to attack? Enter 1 for " + n1 + ", 2 for " + n2 + ", 3 for " + n3 + ", or 4 for " + n4 + ". Type Troops to display how many troops each player has left."));
 	do{
+		if((attackPrompt === "troops")||(attackPrompt === "Troops")){
+			printResults(player1, player2, player3, player4, player1Name, player2Name, player3Name, player4Name);
+		}
 		if(parseInt(attackPrompt) === 1){
 			console.log(n1 + " is defending.");
 			return player1Defend = true;
