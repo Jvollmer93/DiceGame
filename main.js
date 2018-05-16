@@ -1,13 +1,15 @@
-////////////////////MAIN//////////////////////////////////////////////////////////
+///////////////////////MAIN///////////////////////MAIN///////////////////////MAIN///////////////////////
 let playerPrompt = prompt("How many troops would you like to start with?", 0);
-while(playerPrompt < 1){
-	playerPrompt = prompt("Please enter a valid number of troops to start with, greater than 0" , 0);
-}
+playersPrompt(playerPrompt);
 let player1 = parseInt(playerPrompt);
 let player2 = parseInt(playerPrompt);
 let player3 = parseInt(playerPrompt);
 let player4 = parseInt(playerPrompt);
-let player1Name, player2Name, player3Name, player4Name;
+let names = getPlayerNames()
+let player1Name = names[0];
+let player2Name = names[1];
+let player3Name = names[2];
+let player4Name = names[3];
 let player1Attack = false;
 let player2Attack = false;
 let player3Attack = false;
@@ -16,41 +18,16 @@ let player1Defend = false;
 let player2Defend = false;
 let player3Defend = false;
 let player4Defend = false;
-let diceValue = 0;
-let playerDefendingDice = 0;
-let playerAttackingDice = 0;
 let attackingSelfRoll = 0;
 let tempRollAttacker = 0;
 let tempRollDefender = 0;
 let tempRollTroopsLost = 0;
 
-getPlayerNames(player1Name, player2Name, player3Name, player4Name);
-
-console.log("Rules of the game: There are 4 player, when 1 player attacks another they will roll a 10 sided die where the defender rolls a 12 sided die.  If the defenders roll is greater than the attackers, the attacker will roll a 6 sided die which is equivalent to the amount of troops that player will lose.  If the defender rolls lower than the attacker, they will roll an 8 sided die to see how many troops are lost. Rolls that come up as a tie between the attacker and defender will count as a win for the defender.  First player to 0 troops, loses.");
-console.log("Let's see who will start the game...");
-let startingRoll = rollDice(4);
-	if(startingRoll === 1){
-		console.log("Player 1 will go first.");	
-		player1Attack = true;
-	}
-	else if(startingRoll === 2){
-		console.log("Player 2 will go first.");	
-		player2Attack = true;
-
-	}
-	else if(startingRoll === 3){
-		console.log("Player 3 will go first.");	
-		player3Attack = true;
-	}
-	else{
-		console.log("Player 4 will go first.");	
-		player4Attack = true;
-	}
-	console.log("Time to choose a defender..");
-	
+printRules();
+start(player1Name, player2Name, player3Name, player4Name);
 
 do{
-	defenderRoll();
+	defenderRoll(player1Name, player2Name, player3Name, player4Name);
 	if(player1Attack && player1Defend){
 		attackSelf(player1Name, player1);
 		attackingSelfRoll = 0;
@@ -116,9 +93,21 @@ do{
 		attackingSelfRoll = 0;
 	}
 	if((player1>0)&&(player2>0)&&(player3>0)&&(player4>0)){
-	trueFalse();
+	trueFalse(player1Name, player2Name, player3Name, player4Name);
 	}
 }while((player1 > 0)&&(player2 > 0)&&(player3 > 0)&&(player4 > 0));
 
-printResults(player1, player2, player3, player4);
-showLoser(player1, player2, player3, player4);
+printResults(player1, player2, player3, player4, player1Name, player2Name, player3Name, player4Name);
+
+if(player1 <= 0){
+	showLoser(player1Name);
+}
+else if(player2 <= 0){
+	showLoser(player2Name);
+}
+else if(player3 <= 0){
+	showLoser(player3Name);
+}
+else{
+	showLoser(player4Name);
+}
