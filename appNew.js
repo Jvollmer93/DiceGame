@@ -72,6 +72,15 @@ function showLoser(name){
 	console.log(name + " lost!!");
 }
 
+function showWinner(name){
+	alert(name + " wins!!!");
+	console.log(name + " wins!!!");
+}
+
+function showTie(){
+	console.log("It was a tie for winners.");
+}
+
 function printResults(p1, p2, p3, p4, n1, n2, n3, n4){
 	console.log("Troops left: ");
 	console.log(n1 + " : " + p1);
@@ -170,7 +179,7 @@ function start(n1, n2, n3, n4){
 	return;
 }
 function printRules(n1, n2, n3 , n4){
-	console.log("Rules of the game: There are 4 player, when 1 player attacks another they will roll a 10 sided die where the defender rolls a 12 sided die.  If the defenders roll is greater than the attackers, the attacker will roll a 6 sided die which is equivalent to the amount of troops that player will lose.  If the defender rolls lower than the attacker, they will roll an 8 sided die to see how many troops are lost. Rolls that come up as a tie between the attacker and defender will count as a win for the defender.  First player to 0 troops, loses.");
+	console.log("Rules of the game: There are 4 player, when 1 player attacks another they will roll a 10 sided die where the defender rolls a 12 sided die.  If the defenders roll is greater than the attackers, the attacker will roll a 6 sided die which is equivalent to the amount of troops that player will lose.  If the defender rolls lower than the attacker, they will roll an 8 sided die to see how many troops are lost. Rolls that come up as a tie between the attacker and defender will count as a win for the defender.  First player to 0 troops, loses.  The player with the most troops remaining, wins.");
 	console.log("Player 1: " + n1);
 	console.log("Player 2: " + n2);
 	console.log("Player 3: " + n3);
@@ -281,10 +290,26 @@ if(player1 <= 0){
 }
 else if(player2 <= 0){
 	showLoser(player2Name);
-}
 else if(player3 <= 0){
+}
 	showLoser(player3Name);
 }
 else{
 	showLoser(player4Name);
+}
+
+if((player1 > player2)&&(player1 > player3)&&(player1 > player4)){
+	showWinner(player1Name);
+}
+else if((player2 > player1)&&(player2 > player3)&&(player2 > player4)){
+	showWinner(player2Name);
+}
+else if((player3 > player2)&&(player3 > player1)&&(player3 > player4)){
+	showWinner(player3Name);
+}
+else if((player4 > player2)&&(player4 > player3)&&(player4 > player1)){
+	showWinner(player4Name);
+}
+else{
+	showTie();
 }
